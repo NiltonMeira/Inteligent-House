@@ -1,0 +1,57 @@
+#include <Arduino.h>
+#include <Servo.h>
+#include <Keypad.h> // Biblioteca do codigo
+#include <Wire.h>
+
+Servo meuServo;
+const byte numLinhas = 4; // Linhas do teclado
+const byte numColunas = 4; // Colunas do teclado
+
+char teclasMatriz[numLinhas][numColunas] = { // Matriz de caracteres (mapeamento do teclado)
+  {'1', '2', '3', 'A'},
+  {'4', '5', '6', 'B'},
+  {'7', '8', '9', 'C'},
+  {'*', '0', '#', 'D'}
+};
+
+const char SENHA[] = {'1', '9', '2', '8', '6', '3'};
+char TENTATIVA[6];
+
+const byte pinosLinhas[numLinhas] = {2, 3, 4, 5}; // Pinos de conexao com as linhas do teclado
+const byte pinosColunas[numColunas] = {6, 7, 8, 9}; // Pinos de conexao com as colunas do teclado
+
+Keypad meuteclado = Keypad(makeKeymap(teclasMatriz), pinosLinhas, pinosColunas, numLinhas, numColunas);
+
+void setup() {
+  Wire.begin();
+  Serial.begin(9600); // Inicia porta serial
+  meuServo.attach(10);
+}
+
+void loop() {
+
+  for(int i = 0; i < 6; i++)
+  {
+    char pressionado = meuteclado.getKey();
+    if(pressionado){
+      TENTATIVA[i] = pressionado;
+      Serial.println(pressionado);
+    }
+    else{
+      i--;
+    }
+  }
+
+  for(int j = 0; j < 6; j++){
+    if(TENTATIVA[j] != SENHA[j]){
+      Serial.println("Acesso negado.");
+      return;
+    }
+  }
+  Serial.println("Acesso permitido.");
+
+  meuServo.write(90);
+  meuServo.write(-90);
+  delay(4000);
+  meuServo.write(90);
+}
