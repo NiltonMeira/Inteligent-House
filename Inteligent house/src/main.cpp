@@ -15,6 +15,7 @@ void setup() {
   Serial.begin(9600); // Starts the serial communication
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  pinMode(9,OUTPUT);
 }
 
 void loop() {
@@ -40,6 +41,18 @@ void loop() {
   Serial.println(distanceCm);
   Serial.print("Distance (inch): ");
   Serial.println(distanceInch);
+
+ 
+
+  if (distanceCm < 15)
+  {
+    digitalWrite(9,HIGH);
+  }
+  else
+  {
+    digitalWrite(9,LOW);
+  }
+  
   
   delay(1000);
 }

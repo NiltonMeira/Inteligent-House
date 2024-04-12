@@ -1,0 +1,29 @@
+.main_container{
+    width: 100%;
+    height: 92vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.text_container{
+    display: flex;
+
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 30px;
+
+    font-size: 35px;
+}
+
+.main_text{
+    color: var(--main_color);
+}
+
+.img_house{
+    width:35%;
+    border-radius: 10px;
+}
