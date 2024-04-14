@@ -1,0 +1,47 @@
+:root
+{
+    --main_bg_color: #fefae0;
+    --input_color: black;
+    --main_color: #00406c; 
+    --main_dark_color: #00406c;
+    --light_brown: #dda15e;
+    --dark_brown: #bc6c25;
+}
+
+
+body{
+    background-image:url(../../img/Pattern.svg);
+}
+
+.main_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh
+}
+
+.form_input{
+    background-color: var(--main_bg_color);
+    padding: 20px;
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 10px;
+
+}
+
+.text_input{
+    border: none;
+    border-bottom: 2px solid lightgrey; /* Uma borda preta de 2 pixels na parte inferior */
+    background-color: var(--main_bg_color);
+    height: 30px;
+    
+    
+}
+
+.text_input:focus{
+    border-bottom: 2px solid purple; /* Uma borda preta de 2 pixels na parte inferior */
+    outline: none;
+}
