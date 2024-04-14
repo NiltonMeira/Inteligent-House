@@ -1,0 +1,67 @@
+:root
+{
+    --main_bg_color: #fefae0;
+    --input_color: black;
+    --main_color: #00406c; 
+    --main_dark_color: #00406c;
+    --light_brown: #dda15e;
+    --dark_brown: #bc6c25;
+}
+
+
+body{
+    background-image:url(../../img/Pattern.svg);
+}
+
+.main_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    gap: 30px;
+
+
+}
+
+.form_input{
+    background-color: var(--main_bg_color);
+    padding: 20px;
+
+    width: 30%;
+    height: 45vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 10px;
+    justify-content: center;
+    gap: 15px;
+
+}
+
+.Lighting{
+    display: flex;
+
+    gap: 15px;
+    flex-direction: column;
+}
+
+.subtitle{
+    display: flex;
+    font-size: 1.4rem;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.light_block{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.text{
+    width: 95px;
+}
