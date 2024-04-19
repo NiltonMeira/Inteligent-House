@@ -1,9 +1,8 @@
-
 const Sequelize = require('sequelize');
 const database = require('../config/db');
 const houses = require('../models/houses');
 
-const security = database.define('Security', {
+const security = database.define('Sensors', {
     IDSecurity: {
         type: Sequelize.INTEGER,
         autoIncrement: true,

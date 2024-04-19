@@ -2,19 +2,27 @@ const Sequelize = require('sequelize');
 const database = require('../config/db');
 const houses = require('../models/houses');
 
-const sensors = database.define('Lighting', {
-    IDSensors: {
+const lighting = database.define('Lighting', {
+    IDLighting: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    Temperature: {
-        type: Sequelize.DOUBLE,
+    FullHouse: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
     },
-    Humidity: {
-        type: Sequelize.DOUBLE,
+    Room: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+    },
+    Bedroom: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+    },
+    Kitchen: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
     }
 });
@@ -23,4 +31,4 @@ security.belongsTo(houses, {
     foreignKey: 'IDHouse'
 });
 
-module.exports = sensors;    
+module.exports = lighting;    
