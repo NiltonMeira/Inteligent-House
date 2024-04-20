@@ -39,14 +39,17 @@
 
     <main>
         <article class="main_container">
-            <form action="/control" class="form_input" <p>Email</p>
-                <input type="email" class="text_input" placeholder="youremail@mail.com">
+            <form action="/login" method="post" class="form_input">
+                <p>Email</p>
+                <input type="email" class="text_input" placeholder="youremail@mail.com" name="email">
                 <p>Password</p>
-                <input type="password" class="text_input" placeholder="Your password">
+                <input type="password" class="text_input" placeholder="Your password" name="password">
                 <button class="button_vanessa" type="submit">
                     <span class="text ">Sign in</span>
                 </button>
+
             </form>
+
         </article>
 
     </main>

@@ -5,23 +5,27 @@ const database = require('../config/db');
 // Criando a tabela Sala
 const users = database.define('Users', {
     IDUser: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
     },
     Name: {
-    type: Sequelize.STRING(50),
-    allowNull: false
+        type: Sequelize.STRING(50),
+        allowNull: false
     },
     Email: {
-    type: Sequelize.STRING(50),
-    allowNull: false
+        type: Sequelize.STRING(50),
+        allowNull: false
+    },
+    Cpf: {
+        type: Sequelize.STRING(11),
+        allowNull: false
     },
     Password: {
-    type: Sequelize.STRING(50),
-    allowNull: false
-    }
+        type: Sequelize.STRING(50),
+        allowNull: false
+    }   
 });
 
 // Exportando essa tabela

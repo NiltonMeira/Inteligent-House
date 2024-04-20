@@ -39,22 +39,22 @@
 
     <main>
         <article class="main_container">
-            <form class="form_input" action="/control">
+            <form class="form_input" action="/cadastro" method="post">
                 <p>User name</p>
-                <input type="text" class="text_input" placeholder="Your name">
+                <input type="text" class="text_input" placeholder="Your name" name="name">
                 <p>Email</p>
-                <input type="email" class="text_input" placeholder="youremail@mail.com">
+                <input type="email" class="text_input" placeholder="youremail@mail.com" name="email">
                 <p>Cpf</p>
-                <input type="number" class="text_input" placeholder="XXX.XXX.XXX.XX">
+                <input type="number" class="text_input" placeholder="XXX.XXX.XXX.XX" name="cpf">
                 <p>Password</p>
-                <input type="password" class="text_input" placeholder="Your password">
+                <input type="password" class="text_input" placeholder="Your password" name="password">
                 <p>Confirm</p>
-                <input type="password" class="text_input" placeholder="Confirm your password">
-                <form action="/control">
-                    <button class="button_vanessa" type="submit">
-                        <span class="text ">Sign in</span>
-                    </button>
-                </form>
+                <input type="password" class="text_input" placeholder="Confirm your password" name="confirmPassword">
+
+                <button class="button_vanessa" type="submit">
+                    <span class="text ">Sign in</span>
+                </button>
+
 
             </form>
 
