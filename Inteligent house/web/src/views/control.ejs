@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intelligent house</title>
 
-
-    <link rel="stylesheet" href="css/detais/button.css">
     <link rel="stylesheet" href="css/index/index_header.css">
     <link rel="stylesheet" href="css/controls/main.css">
-    <link rel="stylesheet" href="css/detais/checkBox.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +16,6 @@
         rel="stylesheet">
 
 </head>
-
 <body>
     <header>
         <div class="navBar">
@@ -39,85 +35,69 @@
 
     <main>
         <article class="main_container">
-            <form action="" class="form_input">
+            <form action="/controlLight" class="form_input" method="post">
                 <p class="subtitle">Lighting</p>
                 <div class="Lighting">
                     <!-- ... -->
 
                     <div class="light_block">
                         <p class="text">Full house</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-1" class="tgl tgl-skewed">
-                            <label for="cb3-1" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="full_house" id="">
                     </div>
 
                     <div class="light_block">
                         <p class="text">Main room</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-2" class="tgl tgl-skewed">
-                            <label for="cb3-2" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="main_room" id="">
                     </div>
 
                     <div class="light_block">
                         <p class="text">Bedroom</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-3" class="tgl tgl-skewed">
-                            <label for="cb3-3" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="bedroom" id="">
                     </div>
 
                     <div class="light_block">
                         <p class="text">Kitchen</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-4" class="tgl tgl-skewed">
-                            <label for="cb3-4" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="kitchen" id="">
                     </div>
                 </div>
-                <div></div>
+                <div class="div_button">
+                    <button class="button_vanessa" type="submit">
+                        <span class="text ">Submit</span>
+                    </button>
+                </div>
+                
+                
             </form>
 
-            <form action="" class="form_input">
+            <form action="/controlLight" class="form_input" method="post">
                 <p class="subtitle">Security</p>
                 <div class="Lighting">
                     <div class="light_block">
                         <p class="text">Alarm</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-5" class="tgl tgl-skewed">
-                            <label for="cb3-4" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="alarm" id="">
                     </div>
     
                     <div class="light_block">
                         <p class="text">Door</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-6" class="tgl tgl-skewed">
-                            <label for="cb3-4" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="door" id="">
                     </div>
     
                     <div class="light_block">
                         <p class="text">Gate</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-7" class="tgl tgl-skewed">
-                            <label for="cb3-4" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="gate" id="">
                     </div>
     
                     <div class="light_block">
                         <p class="text">Sound Alarm</p>
-                        <div class="checkbox-wrapper-8">
-                            <input type="checkbox" id="cb3-8" class="tgl tgl-skewed">
-                            <label for="cb3-4" data-tg-on="ON" data-tg-off="OFF" class="tgl-btn"></label>
-                        </div>
+                        <input type="checkbox" name="sound_alarm" id="">
                     </div>
-                    
                 </div>
-
-                
-
+                <div class="div_button">
+                    <button class="button_vanessa" type="submit">
+                        <span class="text ">Submit</span>
+                    </button>
+                </div>
+            
             </form>
 
 

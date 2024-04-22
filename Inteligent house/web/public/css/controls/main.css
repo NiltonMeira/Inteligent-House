@@ -65,3 +65,15 @@ body{
 .text{
     width: 95px;
 }
+
+.div_button{
+    display: flex;
+    justify-content: center;
+}
+
+.button_vanessa{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: var(--main_bg_color);
+}
+

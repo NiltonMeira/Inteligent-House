@@ -27,8 +27,4 @@ const lighting = database.define('Lighting', {
     }
 });
 
-security.belongsTo(houses, {
-    foreignKey: 'IDHouse'
-});
-
 module.exports = lighting;    
