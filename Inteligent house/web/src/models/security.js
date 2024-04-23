@@ -27,8 +27,4 @@ const security = database.define('Sensors', {
     }
 });
 
-security.belongsTo(houses, {
-    foreignKey: 'IDHouse'
-});
-
 module.exports = security;    

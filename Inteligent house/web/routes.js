@@ -18,5 +18,6 @@ route.get('/signIn', home.signinGet);
 
 route.get('/control', home.controlGet);
 route.post('/controlLight', control.lightingInsert);
+route.post('/controlSec', control.securityInsert);
 
 module.exports = route;
