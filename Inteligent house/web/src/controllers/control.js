@@ -59,9 +59,9 @@ module.exports = {
         {
             await security.update({
                 Alarm: dados.alarm === 'on',
-                Room: dados.door === 'on',
-                Bedroom: dados.gate === 'on',
-                Kitchen: dados.sound_alarm === 'on'
+                Door: dados.door === 'on',
+                Gate: dados.gate === 'on',
+                SoundAlarm: dados.sound_alarm === 'on'
             },{
                 where:
                 {
@@ -73,10 +73,10 @@ module.exports = {
         else{
 
             await security.create({
-                FullHouse: dados.alarm === 'on',
-                Room: dados.door === 'on',
-                Bedroom: dados.gate === 'on',
-                Kitchen: dados.sound_alarm === 'on'
+                Alarm: dados.alarm === 'on',
+                Door: dados.door === 'on',
+                Gate: dados.gate === 'on',
+                SoundAlarm: dados.sound_alarm === 'on'
             });
         }
         // Redirecionar para a página principal
