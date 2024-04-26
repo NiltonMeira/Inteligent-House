@@ -1,58 +1,45 @@
 #include <Arduino.h>
 
-const int trigPin = 2;
-const int echoPin = 3;
-
-//define sound speed in cm/uS
-#define SOUND_SPEED 0.034
-#define CM_TO_INCH 0.393701
-
-long duration;
-float distanceCm;
-float distanceInch;
+String x = "";
 
 void setup() {
-  Serial.begin(9600); // Starts the serial communication
-  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
-  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
-  pinMode(9,OUTPUT);
+  Serial.begin(9600);
+  Serial.setTimeout(1);
 }
 
-void loop() {
-  // Clears the trigPin
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPin, HIGH);
-  
-  // Calculate the distance
-  distanceCm = duration * SOUND_SPEED/2;
-  
-  // Convert to inches
-  distanceInch = distanceCm * CM_TO_INCH;
-  
-  // Prints the distance in the Serial Monitor
-  Serial.print("Distance (cm): ");
-  Serial.println(distanceCm);
-  Serial.print("Distance (inch): ");
-  Serial.println(distanceInch);
+void action() {
+  String action = x.substring(0, x.indexOf(" "));
+  String valor = x.substring(x.indexOf(" ") + 1);
 
- 
+  if (action  == "true") {
+    if (valor == "room") {
+      
+    }
+    Serial.println( valor + " ON");
+    return;
+  }
 
-  if (distanceCm < 15)
-  {
-    digitalWrite(9,HIGH);
+  if (action == "false") {
+    Serial.println( valor + " OFF");
+    return;
   }
-  else
-  {
-    digitalWrite(9,LOW);
+
+  Serial.println("Error: invalid param (" + x + ")");
+  
+  x = "";
+
+}
+
+void  loop() {
+  while (Serial.available() == 0);
+
+  char tmp = Serial.read();
+
+  if (tmp == '\0') {
+    action();
+
+    return;
   }
-  
-  
-  delay(1000);
+
+  x += tmp;
 }
