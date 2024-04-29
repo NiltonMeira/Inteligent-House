@@ -15,6 +15,7 @@ const lighting = database.define('Lighting', {
     },
     Room: {
         type: Sequelize.BOOLEAN,
+        
         allowNull: false
     },
     Bedroom: {
