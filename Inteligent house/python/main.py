@@ -2,9 +2,6 @@ import sqlConnection as sql
 import arduinoConnection as ard
 import time
 
-
-
-
 arduino = ard.Arduino()
 
 while(True):
@@ -27,6 +24,23 @@ while(True):
     print(arduino.write_read(f"{getBool(Room)} room".lower()))
     print(arduino.write_read(f"{getBool(Bedroom)} bedroom".lower()))
     print(arduino.write_read(f"{getBool(Kitchen)} kitchen".lower()))
+
+    result = mysql.getAll("select * from securities")[0]
+    time.sleep(1)
+
+    Alarm = result[1]
+    Gate = result[2]
+    SoundAlarm = result[3]
+    Door = result[4]
+
+    print(arduino.write_read(f"{getBool(Alarm)} alarm".lower()))
+    print(arduino.write_read(f"{getBool(Gate)} gate".lower()))
+    print(arduino.write_read(f"{getBool(SoundAlarm)} soundalarm".lower()))
+    print(arduino.write_read(f"{getBool(Door)} door".lower()))
+
+    
+
+
     
 
 
