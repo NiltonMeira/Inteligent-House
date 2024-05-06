@@ -2,12 +2,16 @@
 #include <Servo.h>
 #include <Keypad.h> // Biblioteca do codigo
 #include <Wire.h>
+void openGate();
+void closeGate();
+void openDoor();
+void closeDoor();
 
 String x = "";
 const int pinoBuzzer = 51; // PINO DIGITAL UTILIZADO PELO LED]
 
-const int servoPoortao = 52;
-const int servoPorta = 53;
+bool closed = true;
+bool closedDoor = true;
 
 const int pinPir = 49;
 const int pinDht = 12;
@@ -18,9 +22,14 @@ bool isemiting;
 int current_time_millis;
 int time_passed_millis;
 
+const int ledCasa1 = 40;
+const int ledCasa2 = 48;
+const int ledGaragem = 44;
+
 bool alarm;
 
 Servo meuServo;
+Servo doorServo;
 
 const byte LINHAS = 4;
 const byte COLUNAS = 4;
@@ -54,12 +63,13 @@ void setup()
   pinMode(pinoBuzzer, OUTPUT);
 
   meuServo.attach(50);
+  doorServo.attach(28);
 
   pinMode(echo, INPUT);
   pinMode(trig, OUTPUT);
   digitalWrite(trig, LOW);
   isemiting = false;
- 
+  closeGate();
 }
 
 void action()
@@ -101,7 +111,7 @@ void action()
 
     else if (valor == "door")
     {
-      openGate();
+      openDoor();
     }
 
     Serial.println(valor + " ON");
@@ -145,7 +155,7 @@ void action()
 
     else if (valor == "door")
     {
-      openGate();
+      closeDoor();
     }
 
     Serial.println(valor + " OFF");
@@ -157,12 +167,39 @@ void action()
 }
 void openGate()
 {
-  meuServo.write(90);
+  if (closed)
+  {
+    meuServo.write(90);
+  }
+  closed = false;
 }
 
 void closeGate()
 {
-  meuServo.write(-90);
+  if (!closed)
+  {
+    meuServo.write(-90);
+  }
+  closed = true;
+}
+
+void openDoor()
+{
+  if(closedDoor)
+  {
+    doorServo.write(90);
+  }
+  closedDoor = true;
+}
+
+void closeDoor()
+{
+  if (!closedDoor)
+  {
+    doorServo.write(-90);
+  }
+  closedDoor = false;
+  
 }
 
 double measure_distance()
@@ -192,7 +229,7 @@ void loop()
   {
     digitalWrite(trig, LOW);
     isemiting = false;
-    
+
     double distance = measure_distance();
     current_time_millis = millis();
   }
@@ -200,10 +237,7 @@ void loop()
   {
     digitalWrite(trig, HIGH);
     isemiting = true;
-    
+
     current_time_millis = millis();
   }
 }
-
-
-

@@ -6,7 +6,7 @@ class Arduino:
     arduino: serial.Serial
     
     def __init__(self) -> None:
-        arduino = serial.Serial(port='COM7',   baudrate=9600)
+        arduino = serial.Serial(port='COM5',   baudrate=9600)
         arduino.timeout = 1
 
         time.sleep(1)
