@@ -17,6 +17,6 @@ class Arduino:
     def write_read(self, value):
         value += '\0'
         self.arduino.write(value.encode())
-        time.sleep(0.5)
+        # time.sleep(0.5)
         data = self.arduino.readline().decode().strip()
         return data

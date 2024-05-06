@@ -12,6 +12,9 @@ const int pinoBuzzer = 51; // PINO DIGITAL UTILIZADO PELO LED]
 
 bool closed = true;
 bool closedDoor = true;
+bool doorCodeOpen = false;
+
+bool alarm_triggered = false;
 
 const int pinPir = 49;
 const int pinDht = 12;
@@ -22,9 +25,11 @@ bool isemiting;
 int current_time_millis;
 int time_passed_millis;
 
-const int ledCasa1 = 40;
-const int ledCasa2 = 48;
-const int ledGaragem = 44;
+int key_index = 0;
+
+const int ledCasa1 = 38;
+const int ledCasa2 = 42;
+const int ledGaragem = 46;
 
 bool alarm;
 
@@ -68,6 +73,7 @@ void setup()
   pinMode(echo, INPUT);
   pinMode(trig, OUTPUT);
   digitalWrite(trig, LOW);
+  pinMode(pinPir, INPUT);
   isemiting = false;
   closeGate();
 }
@@ -81,17 +87,17 @@ void action()
   {
     if (valor == "room")
     {
-      digitalWrite(3, 1);
+      digitalWrite(ledCasa1, 1);
     }
 
     else if (valor == "bedroom")
     {
-      digitalWrite(4, 1);
+      digitalWrite(ledCasa2, 1);
     }
 
     else if (valor == "kitchen")
     {
-      digitalWrite(5, 1);
+      digitalWrite(ledGaragem, 1);
     }
 
     else if (valor == "alarm")
@@ -123,17 +129,17 @@ void action()
   {
     if (valor == "room")
     {
-      digitalWrite(3, 0);
+      digitalWrite(ledCasa1, 0);
     }
 
     else if (valor == "bedroom")
     {
-      digitalWrite(4, 0);
+      digitalWrite(ledCasa2, 0);
     }
 
     else if (valor == "kitchen")
     {
-      digitalWrite(5, 0);
+      digitalWrite(ledGaragem, 0);
     }
 
     else if (valor == "alarm")
@@ -169,7 +175,7 @@ void openGate()
 {
   if (closed)
   {
-    meuServo.write(90);
+    meuServo.write(180);
   }
   closed = false;
 }
@@ -178,28 +184,27 @@ void closeGate()
 {
   if (!closed)
   {
-    meuServo.write(-90);
+    meuServo.write(90);
   }
   closed = true;
 }
 
 void openDoor()
 {
-  if(closedDoor)
+  if (closedDoor)
   {
-    doorServo.write(90);
+    doorServo.write(180);
   }
   closedDoor = true;
 }
 
 void closeDoor()
 {
-  if (!closedDoor)
+  if (!closedDoor && !doorCodeOpen)
   {
-    doorServo.write(-90);
+    doorServo.write(90);
   }
   closedDoor = false;
-  
 }
 
 double measure_distance()
@@ -207,37 +212,124 @@ double measure_distance()
   unsigned long duration = pulseIn(echo, HIGH);
   return duration * 0.034 / 2;
 }
+bool check_key()
+{
+  if (key_index < 6)
+  {
+    return false;
+  }
+
+  for (int j = 0; j < 6; j++)
+    {
+      if (TENTATIVA[j] != SENHA[j])
+      {
+        
+        key_index = 0;
+        return false;
+      }
+    }
+
+  key_index = 0;
+
+  return true;
+}
+
+void keypad_handler()
+{
+
+  char pressed = teclado_personalizado.getKey();
+
+  if (pressed == 'C') {
+    doorCodeOpen = false;
+    key_index = 0;
+    Serial.println("Closing Door");
+    closeDoor();
+
+    return;
+  }
+
+  if (!pressed)
+  {
+    return;
+  }
+
+  Serial.println(pressed);
+  Serial.print("key index ");
+  Serial.println(key_index);
+
+
+  tone(pinoBuzzer, 1000);
+  delay(150);
+  noTone(pinoBuzzer);
+
+  TENTATIVA[key_index++] = pressed;
+
+  if (check_key()) {
+    openDoor();
+    doorCodeOpen = true;
+
+  } 
+}
+
+bool readPir() {
+  return digitalRead(pinPir) == HIGH;
+}
+int buzzer_tone = 200;
+
+void alarm_handler() {
+  if (alarm_triggered) {
+    tone(pinoBuzzer, buzzer_tone+=10);
+  }
+
+  if (readPir()) {
+    alarm_triggered = true;
+  }
+
+
+}
 
 void loop()
 {
 
-  while (Serial.available() == 0)
-    ;
-
-  char tmp = Serial.read();
-
-  if (tmp == '\0')
+  while (Serial.available() > 0)
   {
-    action();
-    x = "";
-    return;
+    char tmp = Serial.read();
+
+    if (tmp == '\0')
+    {
+      action();
+      x = "";
+      return;
+    }
+
+    x += tmp;
+
+    if (isemiting && (time_passed_millis >= 20))
+    {
+      digitalWrite(trig, LOW);
+      isemiting = false;
+
+      double distance = measure_distance();
+      current_time_millis = millis();
+
+      if (distance < 30)
+      {
+        tone(pinoBuzzer, 1000);
+      }
+      else
+      {
+        noTone(pinoBuzzer);
+      }
+    }
+    else if (time_passed_millis >= 80)
+    {
+      digitalWrite(trig, HIGH);
+      isemiting = true;
+
+      current_time_millis = millis();
+    }
   }
 
-  x += tmp;
-
-  if (isemiting && (time_passed_millis >= 20))
-  {
-    digitalWrite(trig, LOW);
-    isemiting = false;
-
-    double distance = measure_distance();
-    current_time_millis = millis();
-  }
-  else if (time_passed_millis >= 80)
-  {
-    digitalWrite(trig, HIGH);
-    isemiting = true;
-
-    current_time_millis = millis();
-  }
+  keypad_handler();
+  // alarm_handler();
 }

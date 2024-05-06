@@ -10,7 +10,8 @@ while(True):
 
     mysql = sql.MySQL(cursor)
     result = mysql.getAll("select * from Lightings")[0]
-    time.sleep(1)
+    result1 = mysql.getAll("select * from securities")[0]
+    time.sleep(0.01)
 
     fullHouse = result[1]
     Room = result[2]
@@ -25,13 +26,13 @@ while(True):
     print(arduino.write_read(f"{getBool(Bedroom)} bedroom".lower()))
     print(arduino.write_read(f"{getBool(Kitchen)} kitchen".lower()))
 
-    result = mysql.getAll("select * from securities")[0]
-    time.sleep(1)
+    
+    # time.sleep(1)
 
-    Alarm = result[1]
-    Gate = result[2]
-    SoundAlarm = result[3]
-    Door = result[4]
+    Alarm = result1[1]
+    Gate = result1[2]
+    SoundAlarm = result1[3]
+    Door = result1[4]
 
     print(arduino.write_read(f"{getBool(Alarm)} alarm".lower()))
     print(arduino.write_read(f"{getBool(Gate)} gate".lower()))
@@ -39,7 +40,6 @@ while(True):
     print(arduino.write_read(f"{getBool(Door)} door".lower()))
 
     
-
 
     
 
